@@ -1,0 +1,18 @@
+
+.fotter{
+    background-color: rgba(115, 115, 234, 0.979) ;
+    color: rgb(241, 232, 232);
+    width: 100%;
+    padding: 20px;
+    
+}
+.fotter >{
+    text-align: center;
+}
+.parent{
+    display: flex;
+    justify-content: space-around;
+    text-transform: capitalize;
+    letter-spacing: 0.1rem;
+    font-size: medium;
+}

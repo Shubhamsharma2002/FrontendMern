@@ -7,6 +7,7 @@ import Service from "./Pages/Service";
 import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Nav from "./Components/Nav";
+import Fotter from "./Components/Fotter";
 
 function App() {
        return(
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element ={<Login />}></Route>
        
        </Routes>
+       <Fotter/>
        </BrowserRouter>
         
         </>
