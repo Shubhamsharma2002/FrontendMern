@@ -25,10 +25,65 @@ const  Register =()=> {
   }
 
   // handle the form submit
-  const handleSubmit = (e) =>{
-     e.preventDefault();
-     console.log(user)
-  }
+  // const handleSubmit = async(e) =>{
+  //    e.preventDefault();
+  //    console.log(user)
+
+
+  //    try {
+      
+  //     const response = await fetch(`http://localhost:5000/api/v1/user/registaer` ,{
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(user),
+  //     });
+  //     console.log("response data : ", response);
+
+  //     if (response.ok) {
+  //       const responseData = await response.json();
+  //       alert("registration successful");
+  //       setuser({ fullname: "", email: "", phone: "", password: "" });
+  //       console.log(responseData);
+  //     } else {
+  //       console.log("error inside response ", "error");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error", error);
+  //   }
+  // }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(user);
+  
+    // Optional: Add validation for user data here
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/v1/user/registaer`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("response data: ", response);
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        alert("Registration successful");
+        // Reset the user state
+        setuser({ fullname: "", email: "", phone: "", password: "" });
+        console.log(responseData);
+      } else {
+        // Log the response status and text for debugging
+        const errorData = await response.json();
+        console.log("Error inside response:", response.status, errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
   return (
     <>
       <section>
