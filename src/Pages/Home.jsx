@@ -17,10 +17,10 @@ function Home() {
                 tailored to meet your unique needs.
               </p>
               <div className="btn btn-group">
-                <NavLink href="/contact">
+                <NavLink to="/contact">
                   <button className="btn">connect now</button>
                 </NavLink>
-                <NavLink href="/services">
+                <NavLink to="/services">
                   <button className="btn secondary-btn">learn more</button>
                 </NavLink>
               </div>

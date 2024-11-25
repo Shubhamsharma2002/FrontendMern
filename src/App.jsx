@@ -8,7 +8,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import Nav from "./Components/Nav";
 import Fotter from "./Components/Fotter";
-
+import Error from "./Pages/Error";
 function App() {
        return(
         <>
@@ -23,7 +23,7 @@ function App() {
         <Route path="/service" element ={<Service />}></Route>
         <Route path="/register" element ={<Register />}></Route>
         <Route path="/login" element ={<Login />}></Route>
-       
+        <Route path="*" element={<Error/>}></Route>
        </Routes>
        <Fotter/>
        </BrowserRouter>
