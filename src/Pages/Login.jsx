@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-
+import { useNavigate} from "react-router-dom";
+import { useAuth } from '../../Store/Auth';
 function Login() {
   const [user , setuser] = useState({
    
@@ -8,7 +9,8 @@ function Login() {
   })
 
   // handlle the user input
-
+ const navigate = useNavigate();
+ const {storetokenInLs} = useAuth();
   const handleInput = (e) =>{
     // console.log(e)
 
@@ -24,9 +26,38 @@ function Login() {
   }
 
   // handle the form submit
-  const handleSubmit = (e) =>{
+  const handleSubmit = async(e) =>{
      e.preventDefault();
      console.log(user)
+    
+     try {
+      const response = await fetch(`http://localhost:5000/api/v1/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+      console.log("response data: ", response);
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        alert("Login successful");
+        // storing token in localstorege 
+        // localStorage.setItem("token", responseData.token);
+        storetokenInLs(responseData.token)
+        setuser({  email: "",  password: "" });
+        navigate("/")
+        console.log(responseData);
+      } else {
+        // Log the response status and text for debugging
+        const errorData = await response.json();
+        console.log("Error inside response:", response.status, errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
   }
   return (
    <>
