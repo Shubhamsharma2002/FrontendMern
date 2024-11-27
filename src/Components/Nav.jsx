@@ -1,7 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../../Store/Auth'
 import "./Css/Nav.css"
 function  Nav () {
+    const {islogedIn} = useAuth();
   return (
       <>
        <header>
@@ -22,15 +24,23 @@ function  Nav () {
                 <li>
                 <NavLink className="navlink" to="/contact">Contact</NavLink>
                 </li>
-                <li>
-                <NavLink className="navlink" to="/service" >Service</NavLink>
-                </li>
-                <li>
+                {islogedIn ? (
+                  <li>
+                  <NavLink className="navlink" to="/logout">Logout</NavLink>
+                  </li>
+                ):(
+                    <>
+                 <li>
                 <NavLink className="navlink" to="/register">Register</NavLink>
                 </li>
                 <li>
                 <NavLink className="navlink" to="/login">Login</NavLink>
                 </li>
+                    </>
+                )}
+               
+                
+               
             </ul>
         </nav>
         </div>
