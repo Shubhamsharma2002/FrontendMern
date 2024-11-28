@@ -1,13 +1,23 @@
 import React, { useState } from 'react'
-
+import { useAuth } from '../../Store/Auth';
 function Contact() {
   const [contact, setContact] = useState({
     fullname: "",
     email: "",
     message: "",
   });
+  const [userData , setUserdata] = useState(true);
+  const {user} = useAuth();
 
-  // lets tackle our handleInput
+  if(userData && user){
+    setContact({
+      fullname:user.fullname,
+      email: user.email,
+      message:""
+    })
+    setUserdata(false);
+  }
+   // lets tackle our handleInput
   const handleInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
