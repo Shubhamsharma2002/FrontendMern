@@ -71,20 +71,20 @@ const  Register =()=> {
         body: JSON.stringify(user),
       });
       console.log("response data: ", response);
-  
+      const responseData = await response.json();
+      console.log(responseData);
       if (response.ok) {
-        const responseData = await response.json();
+        
         alert("Registration successful");
         //  storing token in localstroage
         storetokenInLs(responseData.token)
         // localStorage.setItem("token", responseData.token);
         setuser({ fullname: "", email: "", phone: "", password: "" });
         navigate("/login")
-        console.log(responseData);
+     
       } else {
         // Log the response status and text for debugging
-        const errorData = await response.json();
-        console.log("Error inside response:", response.status, errorData);
+        alert(responseData.extraDetails ? responseData.extraDetails : responseData.message) ;
       }
     } catch (error) {
       console.error("Error:", error);

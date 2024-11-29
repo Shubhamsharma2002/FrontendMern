@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../Store/Auth';
+import { useNavigate } from 'react-router-dom';
 function Contact() {
   const [contact, setContact] = useState({
     fullname: "",
     email: "",
     message: "",
   });
+  const navigate = useNavigate();
   const [userData , setUserdata] = useState(true);
   const {user} = useAuth();
 
@@ -29,10 +31,35 @@ function Contact() {
   };
 
   // handle fomr getFormSubmissionInfo
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-
     console.log(contact);
+    try {
+      const response = await fetch(`http://localhost:5000/api/v1/form/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(contact),
+      });
+      console.log("response data: ", response);
+  
+      if (response.ok) {
+        const responseData = await response.json();
+        alert("message sent successful");
+        
+      
+        setContact({ fullname: " ", email: " ", message: " " });
+        navigate("/contact")
+        console.log(responseData);
+      } else {
+        // Log the response status and text for debugging
+        const errorData = await response.json();
+        console.log("Error inside response:", response.status, errorData);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
 //  Help me reach 1 Million subs 👉 https://youtube.com/thapatechnical

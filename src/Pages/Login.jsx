@@ -39,20 +39,20 @@ function Login() {
         body: JSON.stringify(user),
       });
       console.log("response data: ", response);
-  
+      const responseData = await response.json();
+      console.log(responseData);
       if (response.ok) {
-        const responseData = await response.json();
+        
         alert("Login successful");
         // storing token in localstorege 
         // localStorage.setItem("token", responseData.token);
         storetokenInLs(responseData.token)
         setuser({  email: "",  password: "" });
         navigate("/")
-        console.log(responseData);
+       
       } else {
         // Log the response status and text for debugging
-        const errorData = await response.json();
-        console.log("Error inside response:", response.status, errorData);
+        alert(responseData.extraDetails ? responseData.extraDetails : responseData.message) ;
       }
     } catch (error) {
       console.error("Error:", error);
