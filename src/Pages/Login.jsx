@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 import { useNavigate} from "react-router-dom";
 import { useAuth } from '../../Store/Auth';
 function Login() {
@@ -43,16 +44,17 @@ function Login() {
       console.log(responseData);
       if (response.ok) {
         
-        alert("Login successful");
+        
         // storing token in localstorege 
         // localStorage.setItem("token", responseData.token);
         storetokenInLs(responseData.token)
         setuser({  email: "",  password: "" });
+        toast.success("Login successful");
         navigate("/")
        
       } else {
         // Log the response status and text for debugging
-        alert(responseData.extraDetails ? responseData.extraDetails : responseData.message) ;
+        toast.error(responseData.extraDetails ? responseData.extraDetails : responseData.message) ;
       }
     } catch (error) {
       console.error("Error:", error);
