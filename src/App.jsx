@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Outlet, Route, Routes} from "react-router-dom";
 import './App.css'
 import Home from "./Pages/Home";
 import About from "./Pages/About";
@@ -10,6 +10,9 @@ import Nav from "./Components/Nav";
 import Fotter from "./Components/Fotter";
 import Error from "./Pages/Error";
 import Logout from "./Pages/Logout";
+import AdminLayouts from "./Components/Layouts/AdminLayouts";
+import AdminUser from "./Pages/AdminUser";
+import AdminContact from "./Pages/AdminContact";
 function App() {
        return(
         <>
@@ -26,7 +29,12 @@ function App() {
         <Route path="/login" element ={<Login />}></Route>
         <Route path="/logout" element ={<Logout />}></Route>
         <Route path="*" element={<Error/>}></Route>
+        <Route path="/admin" element={<AdminLayouts/>}>
+         <Route path="user" element={<AdminUser/>}/>
+         <Route path="contact" element={<AdminContact/>}/>
+        </Route>
        </Routes>
+      
        <Fotter/>
        </BrowserRouter>
         
