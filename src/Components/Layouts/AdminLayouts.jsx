@@ -1,7 +1,6 @@
 import React from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
-// import { LuUserSquare2 , FaHome, LuContact , MdOutlineMiscellaneousServices} from "react-icons/lu";
-
+import { FaHouseUser, FaPhoneVolume, FaUsers } from "react-icons/fa";
 function AdminLayouts() {
   return (
      <>
@@ -10,14 +9,14 @@ function AdminLayouts() {
                 <nav>
                     <ul>
                         <li>
-                            <NavLink to="/admin/user">User</NavLink>
+                            <NavLink to="/admin/user"><FaUsers /> User</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/admin/contact">Contact</NavLink>
+                            <NavLink to="/admin/contact"><FaPhoneVolume /> Contact</NavLink>
                         </li>
                        
                         <li>
-                            <NavLink to="/admin"> Home</NavLink>
+                            <NavLink to="/admin"><FaHouseUser /> Home</NavLink>
                         </li>
                     </ul>
                 </nav>

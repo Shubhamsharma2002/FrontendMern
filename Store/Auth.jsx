@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) =>{
     const [token , settoken] = useState(localStorage.getItem("token"));
     const [user, setuser] = useState("")
+    const authorizationToken = `${token}`;
     const storetokenInLs = (serverToken) =>{
         settoken(serverToken)
          return  localStorage.setItem("token", serverToken);
@@ -22,7 +23,7 @@ export const AuthProvider = ({children}) =>{
           const response = await fetch("http://localhost:5000/api/v1/user/user",{
             method:"GET",
             headers:{
-                Authorization:`${token}`,
+                Authorization:authorizationToken,
             }
           })
 
@@ -41,7 +42,7 @@ export const AuthProvider = ({children}) =>{
         userAuthentication();
     },[]);
     return(
-        <AuthContext.Provider value = {{islogedIn,storetokenInLs, LogoutUser,user}}>
+        <AuthContext.Provider value = {{islogedIn,storetokenInLs, LogoutUser,user,authorizationToken}}>
         {children}
     </AuthContext.Provider>
     ) ;
