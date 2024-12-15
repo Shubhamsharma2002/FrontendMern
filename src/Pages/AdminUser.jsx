@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../Store/Auth'
 import '../table.css'
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 function AdminUser() {
    const {authorizationToken} = useAuth();
    const [userin, setusers] = useState([])
@@ -73,7 +74,7 @@ function AdminUser() {
                                      <td>{curUser.fullname}</td>
                                      <td>{curUser.email}</td>
                                      <td>{curUser.phone}</td>
-                                     <td>Edit</td>
+                                     <td><Link to={`/admin/user/${curUser._id}/edit`}>Edit</Link></td>
                                      <td>
                                        <button onClick={() => deleteUser(curUser._id)}>Delete</button>
                                      </td>

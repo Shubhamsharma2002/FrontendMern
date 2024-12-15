@@ -13,6 +13,7 @@ import Logout from "./Pages/Logout";
 import AdminLayouts from "./Components/Layouts/AdminLayouts";
 import AdminUser from "./Pages/AdminUser";
 import AdminContact from "./Pages/AdminContact";
+import AdminEdit from "./Pages/AdminEdit";
 function App() {
        return(
         <>
@@ -32,6 +33,7 @@ function App() {
         <Route path="/admin" element={<AdminLayouts/>}>
          <Route path="user" element={<AdminUser/>}/>
          <Route path="contact" element={<AdminContact/>}/>
+         <Route path="user/:id/edit"  element ={<AdminEdit/>}/>
         </Route>
        </Routes>
       
