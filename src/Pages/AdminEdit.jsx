@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../Store/Auth';
+import { toast } from 'react-toastify';
 
 function AdminEdit() {
   const [data, setData] = useState({
-    username: "",
+    fullname: "",
     email: "",
     phone: "",
   });
 
   const params = useParams();
+  const navigate = useNavigate();
   console.log("params single user: ", params);
   const {authorizationToken} = useAuth();
   const getSingleUserData = async () => {
@@ -19,7 +21,9 @@ function AdminEdit() {
         headers: {
           Authorization: authorizationToken,
         },
-      });
+    
+      }
+    );
       const data = await response.json();
       console.log(`users single data:  ${data}`);
       setData(data);
@@ -34,6 +38,7 @@ function AdminEdit() {
   }, []);
   const handleInput = (e) => {
     let name = e.target.name;
+    console.log("name",name)
     let value = e.target.value;
 
     setData({
@@ -41,6 +46,30 @@ function AdminEdit() {
       [name]: value,
     });
   };
+
+  const handleSubmit = async(e)=>{
+        e.preventDefault();
+
+        try {
+          const response = await fetch(`http://localhost:5000/api/v1/admin/users/update/${params.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: authorizationToken,
+            },
+            body:JSON.stringify(data),
+          });
+
+          if(response.ok){
+            toast.success("updated data sucessfully")
+          }else{
+            toast.error("not updated")
+          }
+          navigate('/admin/user')
+        } catch (error) {
+          console.log(error);
+        }
+  }
 
   return (
     <section className="section-contact">
@@ -51,13 +80,13 @@ function AdminEdit() {
       <div className="container grid grid-two-cols">
         {/* contact form content actual  */}
         <section className="section-form">
-          <form >
+          <form onSubmit={handleSubmit}>
             <div>
-              <label htmlFor="username">username</label>
+              <label htmlFor="fullname">fullname</label>
               <input
                 type="text"
-                name="username"
-                id="username"
+                name="fullname"
+                id="fullname"
                 autoComplete="off"
                 value={data.fullname}
                 onChange={handleInput}
