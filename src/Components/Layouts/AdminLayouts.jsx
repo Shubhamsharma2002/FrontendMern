@@ -1,7 +1,15 @@
 import React from 'react'
-import { NavLink, Outlet } from 'react-router-dom'
+import { Navigate, NavLink, Outlet } from 'react-router-dom'
 import { FaHouseUser, FaPhoneVolume, FaUsers } from "react-icons/fa";
+import { useAuth } from '../../../Store/Auth';
 function AdminLayouts() {
+     const {user , loading} = useAuth();
+      if(loading){
+        return<h1>Loading........</h1>
+      }
+      if(!user.isAdmin){
+           return <Navigate to="/"/>
+      }
   return (
      <>
            <header>

@@ -6,6 +6,8 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) =>{
     const [token , settoken] = useState(localStorage.getItem("token"));
     const [user, setuser] = useState("")
+    // this state is use to protect the admin routes 
+    const [loading, setloading] = useState(true);
     const authorizationToken = `${token}`;
     const storetokenInLs = (serverToken) =>{
         settoken(serverToken)
@@ -20,6 +22,7 @@ export const AuthProvider = ({children}) =>{
 
     const userAuthentication = async() =>{
       try {
+           setloading(true);
           const response = await fetch("http://localhost:5000/api/v1/user/user",{
             method:"GET",
             headers:{
@@ -32,6 +35,9 @@ export const AuthProvider = ({children}) =>{
             console.log(data.userData);
             
             setuser(data.userData);
+            setloading(false);
+        }else{
+            setloading(false);
         }
       } catch (error) {
         
@@ -42,7 +48,7 @@ export const AuthProvider = ({children}) =>{
         userAuthentication();
     },[]);
     return(
-        <AuthContext.Provider value = {{islogedIn,storetokenInLs, LogoutUser,user,authorizationToken}}>
+        <AuthContext.Provider value = {{islogedIn,storetokenInLs, LogoutUser,user,authorizationToken,loading}}>
         {children}
     </AuthContext.Provider>
     ) ;
