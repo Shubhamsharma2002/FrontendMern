@@ -45,6 +45,7 @@ function AdminContact() {
                
            }
      }
+    //  user data rending wthiout reloding the page
      useEffect(() =>{
          getAllContacts();
         },[])
